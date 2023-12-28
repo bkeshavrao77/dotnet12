@@ -21,7 +21,7 @@ jobs:
     inputs:
       buildType: 'specific'
       project: 'Dotnet1'
-      artifactName: 'your-zip-artifact'  # Replace with the name of your ZIP artifact
+      artifactName: 'WhitingTurnerUI.zip'  # Replace with the name of your ZIP artifact
       itemPattern: '**/*.zip'
       targetPath: '$(System.DefaultWorkingDirectory)/artifacts'
     displayName: 'Download ZIP artifact'
