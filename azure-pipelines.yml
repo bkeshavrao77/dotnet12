@@ -9,7 +9,7 @@ jobs:
   pool:
     name: 'Windows VM'
     demands: msbuild
-    vmImage: 'windows-latest'
+    name: 'Windows VM'
 
   steps:
   - task: UseDotNet@2
