@@ -9,7 +9,7 @@ jobs:
   pool:
     name: Windows VM  # Replace with the name of your self-hosted agent pool
     demands: msbuild
-    vmImage: 'windows-latest'
+    vmImage: 'Windows VM'
 
   steps:
   - checkout: self
