@@ -17,14 +17,6 @@ jobs:
     fetchDepth: 1
     displayName: 'Checkout repository'
 
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: '3.x'
-    displayName: 'Install .NET Core SDK'
-
-  - script: dotnet restore
-    displayName: 'Restore dependencies'
 
   - script: dotnet build --configuration $(BuildConfiguration)
     displayName: 'Build project'
