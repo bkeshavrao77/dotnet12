@@ -1,0 +1,46 @@
+trigger:
+- master
+
+pr:
+- master
+
+jobs:
+- job: CopyFilesToWindowsVM
+  pool:
+    name: 'Windows VM'
+    demands: msbuild
+    vmImage: 'Windows VM'
+
+  steps:
+  - checkout: self
+    clean: true
+    fetchDepth: 1
+    displayName: 'Checkout repository'
+
+  - task: DownloadPipelineArtifact@2
+    inputs:
+      buildType: 'specific'
+      project: 'Dotnet1'
+      artifactName: 'your-zip-artifact'  # Replace with the name of your ZIP artifact
+      itemPattern: '**/*.zip'
+      targetPath: '$(System.DefaultWorkingDirectory)/artifacts'
+    displayName: 'Download ZIP artifact'
+
+  - task: ExtractFiles@1
+    inputs:
+      archiveFilePatterns: '$(System.DefaultWorkingDirectory)/artifacts/**/*.zip'
+      destinationFolder: 'C:\\temp'
+    displayName: 'Extract ZIP file to C:\\temp'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)/artifacts'
+      Contents: '**'
+      TargetFolder: 'C:\\temp'  # Note the use of double backslashes
+      CleanTargetFolder: true
+    displayName: 'Copy files to Windows VM'
+
+  - powershell: |
+      # Optional: Run additional PowerShell commands on the Windows VM after copying files
+      # Example: Invoke-Command -ComputerName YourWindowsVM -ScriptBlock { YourScriptHere } -Credential $env:USERNAME
+    displayName: 'Run additional PowerShell commands on Windows VM'
