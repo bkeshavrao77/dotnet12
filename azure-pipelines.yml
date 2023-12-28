@@ -18,7 +18,7 @@ jobs:
       version: '3.x'
     displayName: 'Install .NET Core SDK'
 
- - script: |
+ - script: 
     echo Current Directory: $(System.DefaultWorkingDirectory)
   displayName: 'Print Current Directory'
 
@@ -26,7 +26,7 @@ jobs:
  - script: dotnet build --configuration $(BuildConfiguration) --project YourProjectFile.csproj
   displayName: 'Build project'
 
-- script: |
+- script: 
     dir
   displayName: 'List Files in Current Directory'
 
