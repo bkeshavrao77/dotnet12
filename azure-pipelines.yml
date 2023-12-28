@@ -2,12 +2,14 @@ trigger:
 - main
 
 pr:
-- master
+- main
 
 jobs:
 - job: Build
   pool:
-    name: Windows VM
+    name: 'Windows VM'
+    demands: msbuild
+    vmImage: 'windows-latest'
 
   steps:
   - task: UseDotNet@2
@@ -24,7 +26,9 @@ jobs:
 
 - job: Deploy
   pool:
-    name: Windows VM
+    name: 'Windows VM'
+    demands: msbuild
+    vmImage: 'windows-latest'
 
   steps:
   - task: UseDotNet@2
