@@ -21,7 +21,7 @@ jobs:
     inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)'
       Contents: '**'
-      TargetFolder: '\\\\YourWindowsVM\\C$\\temp'  # Note the use of double backslashes
+      TargetFolder: 'C$\\temp'  # Note the use of double backslashes
       CleanTargetFolder: true
     displayName: 'Copy files to Windows VM'
 
