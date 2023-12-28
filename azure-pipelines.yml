@@ -5,9 +5,25 @@ pr:
 - master
 
 jobs:
+- job: DeleteFilesBeforeCopy
+  pool:
+    name: 'Windows VM'
+    demands: msbuild
+    vmImage: 'Windows VM'
+
+  steps:
+  - checkout: self
+    clean: true
+    fetchDepth: 1
+    displayName: 'Checkout repository'
+
+  - powershell: |
+      Remove-Item -Path 'C:\temp\*' -Force -Recurse
+    displayName: 'Delete files from C:\temp on Windows VM'
+
 - job: CopyFilesToWindowsVM
   pool:
-    name: 'Windows VM'  # Replace with the name of your self-hosted agent pool
+    name: 'Windows VM'
     demands: msbuild
     vmImage: 'Windows VM'
 
