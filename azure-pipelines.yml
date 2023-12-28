@@ -40,12 +40,3 @@ jobs:
   - script: dotnet publish --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)
     displayName: 'Publish artifacts'
 
-  - task: AzureRmWebAppDeployment@4
-    inputs:
-      ConnectionType: 'AzureRM'
-      azureSubscription: '<AzureSubscription>'
-      appType: 'webApp'
-      WebAppName: '<YourWebAppName>'
-      packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
-      enableCustomDeployment: true
-      DeploymentType: 'webDeploy'
