@@ -5,9 +5,9 @@ pr:
 - main
 
 jobs:
-- job: PullCode
+- job: CopyFilesToWindowsVM
   pool:
-    name: Windows VM  # Replace with the name of your self-hosted agent pool
+    name: 'Windows VM'  # Replace with the name of your self-hosted agent pool
     demands: msbuild
     vmImage: 'Windows VM'
 
@@ -17,10 +17,15 @@ jobs:
     fetchDepth: 1
     displayName: 'Checkout repository'
 
-  - script: |
-      # Create the C:\temp folder if it doesn't exist
-      New-Item -ItemType Directory -Path C:\temp -Force | Out-Null
-      
-      # Copy the contents of the repository to C:\temp
-      Copy-Item -Path "$(System.DefaultWorkingDirectory)\*" -Destination C:\temp -Recurse -Force
-    displayName: 'Copy code to C:\temp'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: '**'
+      TargetFolder: '\\YourWindowsVM\C$\temp'  # Replace with the actual path on your Windows VM
+      CleanTargetFolder: true
+    displayName: 'Copy files to Windows VM'
+
+  - powershell: |
+      # Optional: Run additional PowerShell commands on the Windows VM after copying files
+      # Example: Invoke-Command -ComputerName YourWindowsVM -ScriptBlock { YourScriptHere } -Credential $env:USERNAME
+    displayName: 'Run additional PowerShell commands on Windows VM'
