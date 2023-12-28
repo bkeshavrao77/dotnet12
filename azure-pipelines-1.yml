@@ -13,7 +13,7 @@ jobs:
 
   - powershell: |
       # Replace <YourGitRepository> with your actual Git repository URL
-      $repositoryUrl = "https://github.com/bkeshavrao77/dotnet12/tree/master"
+      $repositoryUrl = "https://github.com/bkeshavrao77/dotnet12.git"
       
       # Replace <YourPersonalAccessToken> with your actual Personal Access Token
       $pat = "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"
@@ -25,7 +25,7 @@ jobs:
       git clone $repositoryUrl
 
       # Navigate to the repository folder
-      cd "$(System.DefaultWorkingDirectory)/<YourRepoName>"
+      cd "$(System.DefaultWorkingDirectory)/dotnet12"
 
       # Checkout the master branch
       git checkout master
