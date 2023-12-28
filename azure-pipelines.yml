@@ -1,31 +1,40 @@
 trigger:
 - master
 
-pr:
-- master
+pool:
+  name: Windows VM
 
 jobs:
-- job: CopyFilesToWindowsVM
-  pool:
-    name: 'Windows VM'  # Replace with the name of your self-hosted agent pool
-    demands: msbuild
-    vmImage: 'Windows VM'
-
+- job: PullCode
+  displayName: 'Pull Code from Git'
   steps:
   - checkout: self
     clean: true
-    fetchDepth: 1
-    displayName: 'Checkout repository'
-
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: '**'
-      TargetFolder: 'C$\temp'  # Replace with the actual path on your Windows VM
-      CleanTargetFolder: true
-    displayName: 'Copy files to Windows VM'
 
   - powershell: |
-      # Optional: Run additional PowerShell commands on the Windows VM after copying files
-      # Example: Invoke-Command -ComputerName YourWindowsVM -ScriptBlock { YourScriptHere } -Credential $env:USERNAME
-    displayName: 'Run additional PowerShell commands on Windows VM'
+      # Replace <YourGitRepository> with your actual Git repository URL
+      $repositoryUrl = "https://github.com/bkeshavrao77/dotnet12.git"
+      
+      # Replace <YourPersonalAccessToken> with your actual Personal Access Token
+      $pat = "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"
+      
+      # Replace <YourTargetFolder> with your actual target folder path
+      $targetFolder = "C:\temp"
+
+      # Clone the repository
+      git clone $repositoryUrl
+
+      # Navigate to the repository folder
+      cd "$(System.DefaultWorkingDirectory)/dotnet12"
+
+      # Checkout the master branch
+      git checkout master
+
+      # Pull the latest code
+      git pull origin master
+
+      # Copy the code to the target folder
+      Copy-Item -Path .\* -Destination $targetFolder -Recurse -Force
+    env:
+      GIT_TERMINAL_PROMPT: 0
+    displayName: 'Pull Code and Copy to Target Folder'
