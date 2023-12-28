@@ -1,23 +1,71 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
-pool:
-  name: Windows VM
+pr:
+- main
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+jobs:
+- job: Deploy
+  pool:
+    name: 'Windows VM'
+    demands: msbuild
+    vmImage: 'Windows VM'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
-- task: DotNetCoreCLI@2
-  inputs:
-    command: 'build'
-    projects: 'C:\test\HelloWorldApp\HelloWorldApp.Web'
+  steps:
+  - checkout: self
+    clean: true
+    fetchDepth: 1
+    displayName: 'Checkout repository'
+
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '3.x'
+    displayName: 'Install .NET Core SDK'
+
+  - script: dotnet restore
+    displayName: 'Restore dependencies'
+
+  - script: dotnet build --configuration $(BuildConfiguration)
+    displayName: 'Build project'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: '**\bin\$(BuildConfiguration)\**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy build artifacts'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(System.DefaultWorkingDirectory)'
+      Contents: '**\$(BuildConfiguration)\**'
+      TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    displayName: 'Copy additional files'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'
+    displayName: 'Publish build artifacts'
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Build.ArtifactStagingDirectory)'
+      Contents: '**'
+      TargetFolder: 'c:\temp'
+      CleanTargetFolder: true
+    displayName: 'Copy artifacts to Windows VM'
+
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Your deployment script or commands on the Windows VM
+        # You may need to adjust this based on your deployment requirements
+        Invoke-Command -ComputerName YourWindowsVMAgent -ScriptBlock {
+          # Your deployment script here
+        } -Credential $env:USERNAME
+    displayName: 'Run deployment script on Windows VM'
+
