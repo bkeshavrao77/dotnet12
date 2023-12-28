@@ -21,7 +21,7 @@ jobs:
     inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)'
       Contents: '**'
-      TargetFolder: '\\YourWindowsVM\C$\temp'  # Replace with the actual path on your Windows VM
+      TargetFolder: 'C$\temp'  # Replace with the actual path on your Windows VM
       CleanTargetFolder: true
     displayName: 'Copy files to Windows VM'
 
