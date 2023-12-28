@@ -1,5 +1,13 @@
 trigger:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: 'C:\test\HelloWorldApp'
 - main
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
 
 pr:
 - main
