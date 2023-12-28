@@ -1,8 +1,8 @@
 trigger:
-- main
+- master
 
 pr:
-- main
+- master
 
 jobs:
 - job: CopyFilesToWindowsVM
