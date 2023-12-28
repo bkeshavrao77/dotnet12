@@ -18,25 +18,21 @@ jobs:
       version: '3.x'
     displayName: 'Install .NET Core SDK'
 
-  - script: dotnet restore
-    displayName: 'Restore dependencies'
+ - script: |
+    echo Current Directory: $(System.DefaultWorkingDirectory)
+  displayName: 'Print Current Directory'
 
-  - script: dotnet build --configuration $(BuildConfiguration)
-    displayName: 'Build project'
+
+ - script: dotnet build --configuration $(BuildConfiguration) --project YourProjectFile.csproj
+  displayName: 'Build project'
+
+- script: |
+    dir
+  displayName: 'List Files in Current Directory'
 
 - job: Deploy
   pool:
     name: 'Windows VM'
     demands: msbuild
     vmImage: 'windows-latest'
-
-  steps:
-  - task: UseDotNet@2
-    inputs:
-      packageType: 'sdk'
-      version: '3.x'
-    displayName: 'Install .NET Core SDK'
-
-  - script: dotnet publish --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)
-    displayName: 'Publish artifacts'
 
