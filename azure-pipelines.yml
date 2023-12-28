@@ -1,18 +1,47 @@
-# ASP.NET Core
-# Build and test ASP.NET Core projects targeting .NET Core.
-# Add steps that run tests, create a NuGet package, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
-
 trigger:
 - main
 
-pool:
-  name: Windows VM
+pr:
+- main
 
+jobs:
+- job: Build
+  pool:
+    vmImage: 'windows-latest'
 
-variables:
-  buildConfiguration: 'Release'
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '3.x'
+    displayName: 'Install .NET Core SDK'
 
-steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+  - script: dotnet restore
+    displayName: 'Restore dependencies'
+
+  - script: dotnet build --configuration $(BuildConfiguration)
+    displayName: 'Build project'
+
+- job: Deploy
+  pool:
+    name: Windows VM
+
+  steps:
+  - task: UseDotNet@2
+    inputs:
+      packageType: 'sdk'
+      version: '3.x'
+    displayName: 'Install .NET Core SDK'
+
+  - script: dotnet publish --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)
+    displayName: 'Publish artifacts'
+
+  - task: AzureRmWebAppDeployment@4
+    inputs:
+      ConnectionType: 'AzureRM'
+      azureSubscription: '<AzureSubscription>'
+      appType: 'webApp'
+      WebAppName: '<YourWebAppName>'
+      packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+      enableCustomDeployment: true
+      DeploymentType: 'webDeploy'
