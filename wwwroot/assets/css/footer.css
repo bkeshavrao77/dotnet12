@@ -1,0 +1,10 @@
+footer.footer {
+    padding: 20px 10px 20px 10px;
+    border-top: 9px solid #FF6319;
+}
+.footer__logo_wt {
+    text-align: right;
+}
+.footer__copyright {
+    text-align: center;
+

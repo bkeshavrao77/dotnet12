@@ -1,0 +1,94 @@
+.product-list h2.main-title {
+    margin-left: -10px;
+    margin-bottom: 30px;
+}
+.content {
+    margin-left: -20px;
+}
+.product-item {
+    padding-right: 0px;
+    margin-bottom: 25px;
+}
+.th-category-list section#sidebar h4.main-title {
+    margin-top: 25px;
+    font-weight: bold;
+    font-size: 17px;
+}
+.th-category-list section.categories h2.main-title {
+    font-size: 22px;
+    text-align: center;
+    margin-bottom: 28px;
+    margin-top: 10px;
+    font-weight: 700;
+}
+.th-category-list section.categories .card-body {
+    padding-top: 0px;
+}
+ul.browser-cats {
+    padding-left: 0px;
+    list-style: none !important;
+}
+ul.browser-cats button {
+    background-color: #FFF;
+    border: none;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-family: 'IBM Plex Sans';
+}
+ul.browser-cats > li {
+    background-color: #FFFFFF;
+    margin-bottom: 8px;
+    border-bottom: 0.0714285714rem solid #dde0e2;
+    padding-bottom: 8px;
+}
+ul.browser-cats ul.sub-cats {
+    list-style: none;
+    padding-left: 16px;
+    display: none;
+    background-color: #f4f4f5;
+    padding: 10px 15px;
+    font-size: 14px;
+    margin-top: 5px;
+}
+ul.browser-cats > li.cat-list.active > ul.sub-cats {
+    display: block;
+}
+ul.browser-cats li a {
+    text-decoration: none;
+    color: #000;
+}
+ul.browser-cats ul.sub-cats li {
+    margin-bottom: 8px !important;
+    font-size: 13.5px;
+    font-family: 'Roboto';
+}
+ul.browser-cats > li.cat-list.active > button > i {
+    transform: rotate(180deg);
+    transition: all 300ms ease-in-out;
+}
+ul.browser-cats button:hover {
+    color: #0067A3 !important;
+}
+ul.browser-cats li.child-active > a {
+    color: #0067A3 !important;
+    font-weight: bold;
+}
+ul.browser-cats .child-active ul.sub-cats {
+    display: block;
+    padding-top: 4px;
+    padding-bottom: 0px;
+    margin-bottom: 10px !important;
+}
+ul.browser-cats li:hover > a, ul.browser-cats li:hover > button {
+    text-decoration: underline;
+}
+ul.browser-cats li:hover > i {
+    text-decoration: none !important;
+}
+
+
+

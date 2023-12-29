@@ -1,0 +1,73 @@
+:root {
+    --yard-goods: #990033;
+    --pd-services: #00873C;
+}
+* {
+    font-family: 'Roboto';
+}
+@media (min-width: 1400px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1190px;
+    }
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  opacity: 1;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.tbh-breadcrumb.breadcrumbs li.tbh-br-item {
+    color: #282C3F;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    text-transform: capitalize;
+}
+.tbh-breadcrumb.breadcrumbs li.tbh-br-item a {
+    text-decoration: none;
+    color: #282C3F;
+}
+.tbh-breadcrumb ul.tbh-br-list li {
+    padding-right: 5px;
+}
+.tbh-breadcrumb.breadcrumbs {
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+li.tbh-br-item a:after {
+    content: '/';
+    padding-left: 5px;
+}
+.tbh-breadcrumb.breadcrumbs li.tbh-br-item a:hover {
+    font-weight: bold;
+}
+li.tbh-br-item.tbh-end.current {
+    font-weight: bold;
+}
+.sec_title {
+    color: #000;
+    font-family: 'Roboto';
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+
