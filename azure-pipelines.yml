@@ -7,7 +7,7 @@ pr:
 jobs:
 - job: CopyFilesToWindowsVM
   pool:
-    name: 'Windows VM'
+    name: 'Windows VM'  # Replace with the name of your self-hosted agent pool
     demands: msbuild
     vmImage: 'Windows VM'
 
@@ -17,6 +17,17 @@ jobs:
     fetchDepth: 1
     displayName: 'Checkout repository'
 
+  - powershell: |
+      # Get the computer name and set it as an environment variable
+      $env:VMComputerName = $env:COMPUTERNAME
+    displayName: 'Set VMComputerName variable'
+
+  - task: IISWebAppManagementOnMachineGroup@0
+    inputs:
+      action: 'Stop'
+      servers: '$(VMComputerName)'
+    displayName: 'Stop IIS on Windows VM'
+
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)'
@@ -24,6 +35,12 @@ jobs:
       TargetFolder: 'C:\\temp'  # Note the use of double backslashes
       CleanTargetFolder: true
     displayName: 'Copy files to Windows VM'
+
+  - task: IISWebAppManagementOnMachineGroup@0
+    inputs:
+      action: 'Start'
+      servers: '$(VMComputerName)'
+    displayName: 'Start IIS on Windows VM'
 
   - powershell: |
       # Optional: Run additional PowerShell commands on the Windows VM after copying files
