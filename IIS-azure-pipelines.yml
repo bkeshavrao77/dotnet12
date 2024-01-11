@@ -7,7 +7,7 @@ pr:
 jobs:
 - job: StopIISOnWindowsVM
   pool:
-    vmImage: 'Windows VM'
+    name: 'Windows VM'
 
   steps:
   - checkout: self
