@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 footer.footer {
     padding: 20px 10px 20px 10px;
     border-top: 9px solid #FF6319;
@@ -8,3 +9,37 @@ footer.footer {
 .footer__copyright {
     text-align: center;
 
+=======
+footer.footer {
+    padding: 58px 10px 45px 10px;
+    border-top: 9px solid #FF6319;
+}
+.footer__logo_wt {
+    text-align: right;
+}
+.footer__copyright {
+    text-align: center;
+}
+.footer-th-logo img {
+    margin-bottom: 20px;
+}
+.footer-nav h4 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+.footer-nav nav ul {
+    list-style: none;
+    padding-left: 0px;
+}
+.footer-nav nav ul li {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #000000;
+    font-weight: 500;
+}
+.footer-nav nav ul li a {
+    text-decoration: none;
+    color: #000000;
+}
+>>>>>>> 2c8e14b (Updated code Jan 11 2024)
